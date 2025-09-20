@@ -1,0 +1,432 @@
+/* ===== 1. RESET & BASE TOKENS ===== */
+:root {
+  /* Палитра (Light Theme) */
+  --color-bg: #fff;
+  --color-fg: #0b0b0b;
+  --color-muted: #666;
+  --color-primary: #0a84ff;
+  --color-danger: #b00020;
+  --color-success: #00a650;
+
+  /* Типографика */
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  
+  /* Размеры (ритм отступов) */
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 1rem;     /* 16px */
+  --space-4: 1.5rem;   /* 24px */
+  --space-5: 2.5rem;   /* 40px */
+
+  /* Скругления и тени */
+  --radius: 0.75rem;   /* 12px */
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.08);
+  
+  /* Схема по умолчанию */
+  color-scheme: light;
+}
+
+/* Тёмная тема */
+body.theme-dark {
+  --color-bg: #0b0b0b;
+  --color-fg: #f5f5f5;
+  --color-muted: #aaa;
+  --color-primary: #6aa2ff;
+  color-scheme: dark;
+}
+
+/* Базовый сброс */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+/* Предотвращаем переполнение медиа-элементов */
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Наследование для форм */
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* ===== 2. BASE STYLES ===== */
+/* Контейнер для центрирования контента */
+.container {
+  width: min(100% - 2 * var(--space-4), 1120px);
+  margin-inline: auto;
+}
+
+/* Базовые стили для секций */
+.section {
+  padding-block: var(--space-5);
+}
+
+.section__title {
+  margin: 0 0 var(--space-3);
+}
+
+/* Плавная прокрутка */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Стилизация фокуса для доступности */
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Состояния недоступности */
+:disabled, [aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Подсветка якоря */
+:target {
+  outline: 2px dashed var(--color-primary);
+  outline-offset: 4px;
+}
+
+/* ===== 3. COMPONENTS ===== */
+/* 3.1. Site Header */
+.site-header {
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-muted);
+  padding: var(--space-3) 0;
+}
+
+.site-header__brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.site-header__brand:hover {
+  text-decoration: underline;
+}
+
+/* 3.2. Site Navigation */
+.site-nav__list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--space-3);
+}
+
+.site-nav__link {
+  color: var(--color-fg);
+  text-decoration: none;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius);
+  transition: background-color 0.2s ease;
+}
+
+.site-nav__link:hover {
+  background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
+}
+
+.site-nav__link--cta {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.site-nav__link--cta:hover {
+  background-color: color-mix(in srgb, var(--color-primary) 90%, black);
+}
+
+/* 3.3. Breadcrumbs */
+.breadcrumbs {
+  padding: var(--space-2) 0;
+}
+
+.breadcrumbs__list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--space-2);
+}
+
+.breadcrumbs__link {
+  color: var(--color-muted);
+  text-decoration: none;
+}
+
+.breadcrumbs__link:hover {
+  text-decoration: underline;
+}
+
+.breadcrumbs__item:not(:last-child)::after {
+  content: "→";
+  margin-left: var(--space-2);
+  color: var(--color-muted);
+}
+
+/* 3.4. Form Components */
+.form {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.form__label {
+  display: block;
+  margin-bottom: var(--space-1);
+  font-weight: 500;
+}
+
+.form__input,
+.form__select,
+.form__textarea {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-muted);
+  border-radius: var(--radius);
+  background-color: var(--color-bg);
+}
+
+.form__input:focus,
+.form__select:focus,
+.form__textarea:focus {
+  border-color: var(--color-primary);
+}
+
+.form__error {
+  color: var(--color-danger);
+  font-size: 0.875rem;
+  margin-top: var(--space-1);
+}
+
+/* 3.5. Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2) var(--space-3);
+  border: none;
+  border-radius: var(--radius);
+  background-color: var(--color-primary);
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  background-color: color-mix(in srgb, var(--color-primary) 90%, black);
+}
+
+.btn--secondary {
+  background-color: transparent;
+  border: 1px solid var(--color-muted);
+  color: var(--color-fg);
+}
+
+.btn--secondary:hover {
+  background-color: color-mix(in srgb, var(--color-muted) 10%, transparent);
+}
+
+/* 3.6. Modal/Dialog */
+dialog {
+  border: none;
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  box-shadow: var(--shadow);
+  width: min(90vw, 500px);
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-3);
+}
+
+.modal__title {
+  margin: 0;
+}
+
+.modal__close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--color-muted);
+}
+
+/* 3.7. Hero Section with Background */
+.hero {
+  background: 
+    linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.15)),
+    url("assets/hero-bg.jpg") center/cover no-repeat;
+  color: white;
+  padding: clamp(1.5rem, 4vw, 3rem) 1rem;
+  border-radius: var(--radius);
+  text-align: center;
+  margin-bottom: var(--space-3);
+}
+
+.hero__title {
+  margin: 0 0 var(--space-3);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.hero__description {
+  margin: 0 0 var(--space-4);
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  opacity: 0.9;
+}
+
+/* 3.8. Media Container */
+.media-container {
+  aspect-ratio: 16/9;
+  width: min(100%, 960px);
+  margin-inline: auto;
+}
+
+.media-container iframe,
+.media-container video {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: var(--radius);
+}
+
+/* 3.9. Card with Image */
+.card {
+  background: var(--color-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.card__img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.card__content {
+  padding: var(--space-3);
+}
+
+.card__title {
+  margin: 0 0 var(--space-2);
+}
+
+.card__description {
+  margin: 0;
+  color: var(--color-muted);
+}
+/* 3.10. Section */
+.section {
+  padding-block: var(--space-3); 
+}
+
+.section__title {
+  margin: 0 0 var(--space-2); 
+}
+
+.contacts-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3); 
+}
+
+.section:last-child {
+  padding-bottom: 0;
+}
+
+/* ===== 4. UTILITIES ===== */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-1 { margin-top: var(--space-1); }
+.mt-2 { margin-top: var(--space-2); }
+.mt-3 { margin-top: var(--space-3); }
+.mt-4 { margin-top: var(--space-4); }
+.mt-5 { margin-top: var(--space-5); }
+
+/* ===== 5. THEME TOGGLE ===== */
+.theme-toggle {
+  position: fixed;
+  bottom: var(--space-3);
+  right: var(--space-3);
+  z-index: 1000;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+/* ===== 6. RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .site-nav__list {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  
+  .container {
+    width: min(100% - 2 * var(--space-3), 100%);
+  }
+  
+  dialog {
+    margin: auto;
+    width: 95vw;
+  }
+}
+/* Стили для кнопок социальных сетей */
+.social-buttons {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.social-buttons .btn {
+  min-width: 140px;
+  justify-content: center;
+}

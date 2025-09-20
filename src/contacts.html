@@ -1,66 +1,184 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты - Твич Клипы</title>
+    <meta name="description" content="Связь с нами">
     <link rel="stylesheet" href="styles.css">
     <script src="main.js" defer></script>
-    <meta charset="UTF-8">
-    <title>Контакты</title>
-    <meta name="description" content="Связь с нами">
 </head>
 <body>
     <header class="site-header">
-        <a class="site-header__brand" href="/">Твич Клипы</a>
-        <nav class="site-nav" aria-label="Основная навигация">
-            <ul class="site-nav__list">
-                <li class="site-nav__item"><a class="site-nav__link" href="index.html">Главная</a></li>
-                <li class="site-nav__item"><a class="site-nav__link" href="about.html">О нас</a></li>
-                <li class="site-nav__item"><a class="site-nav__link site-nav__link--cta" href="contacts.html">Связаться</a></li>
-            </ul>
-        </nav>
+        <div class="container">
+            <a class="site-header__brand" href="/">Твич Клипы</a>
+            <nav class="site-nav" aria-label="Основная навигация">
+                <ul class="site-nav__list">
+                    <li class="site-nav__item"><a class="site-nav__link" href="index.html">Главная</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="about.html">О нас</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link site-nav__link--cta site-nav__link--active" href="contacts.html">Связаться</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <main>
+<main class="container">
+    <!-- Хлебные крошки -->
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <ul class="breadcrumbs__list">
+            <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="index.html">Главная</a></li>
+            <li class="breadcrumbs__item"><span class="breadcrumbs__current">Контакты</span></li>
+        </ul>
+    </nav>
 
-        <!-- Простые "хлебные крошки" -->
-        <nav aria-label="Хлебные крошки">
-            <a href="index.html">Главная</a> →
-            <span>Контакты</span>
-        </nav>
-        <h1>Контакты для связи с нами</h1>
-        <button id="openDialog" type="button">Написать нам</button>
-
-        <!-- Модальное окно -->
-        <dialog id="contactDialog">
-            <h2>Обратная связь</h2>
-            <form id="contactForm" novalidate>
-                <label for="name">Имя</label>
-                <input id="name" name="name" type="text" required>
-                
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" required>
-                
-                <label for="phone">Телефон</label>
-                <input id="phone" name="phone" type="tel" required>
-                
-                <label for="message">Сообщение</label>
-                <textarea id="message" name="message" required></textarea>
-                
-                <div class="form-actions">
-                    <button type="button" id="closeDialog">Закрыть</button>
-                    <button type="submit">Отправить</button>
-                </div>
-            </form>
-        </dialog>
-        <section>
-            <h2>Социальные сети:</h2>
-            <li><a href="https://vk.com/">ВК</a></li>
-            <li><a href="https://web.telegram.org/"> ТГ</a></li>
+    <h1 class="section__title">Контакты для связи с нами</h1>
+    
+    <div class="contacts-layout"> <!-- Добавлен этот контейнер -->
+        <section class="section">
+            <h2 class="section__title">Напишите нам</h2>
+            <button id="openDialog" class="btn" type="button">Написать сообщение</button>
         </section>
-        <!-- Кнопка открытия модалки -->
-    </main>
-    <footer>
-        <p>&copy; 2025 Твич Клипы. Все права защищены.</p>
-        <p>Телефон: +7 (123) 456-78-90</p> <!-- Скопируйте весь блок <footer> из index.html -->
+
+        <section class="section">
+            <h2 class="section__title">Социальные сети</h2>
+            <div class="social-buttons">
+                <a href="https://vk.com/" class="btn btn--secondary">ВКонтакте</a>
+                <a href="https://web.telegram.org/" class="btn btn--secondary">Telegram</a>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section__title">Наше местоположение</h2>
+            <div class="media-container">
+                <iframe 
+                    src="https://yandex.ru/map-widget/v1/?um=constructor%3A1a5d7c3b7c6b9c8d9e0f1a2b3c4d5e6f&amp;source=constructor" 
+                    title="Карта с нашим местоположением"
+                    loading="lazy"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+    </div> <!-- Закрытие contacts-layout -->
+</main>
+
+    <!-- Модальное окно -->
+    <dialog id="contactDialog" class="modal">
+        <div class="modal__header">
+            <h2 class="modal__title">Обратная связь</h2>
+            <button class="modal__close" id="closeDialog" aria-label="Закрыть">×</button>
+        </div>
+        
+        <form id="contactForm" class="form" novalidate>
+            <div class="form__group">
+                <label for="name" class="form__label">Имя</label>
+                <input id="name" name="name" type="text" class="form__input" required minlength="2">
+                <div class="form__error" id="nameError"></div>
+            </div>
+
+            <div class="form__group">
+                <label for="email" class="form__label">Email</label>
+                <input id="email" name="email" type="email" class="form__input" required>
+                <div class="form__error" id="emailError"></div>
+            </div>
+
+            <div class="form__group">
+                <label for="phone" class="form__label">Телефон</label>
+                <input id="phone" name="phone" type="tel" class="form__input" 
+                       pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$"
+                       placeholder="+7 (900) 123-45-67">
+                <div class="form__error" id="phoneError"></div>
+            </div>
+
+            <div class="form__group">
+                <label for="message" class="form__label">Сообщение</label>
+                <textarea id="message" name="message" class="form__textarea" required rows="4"></textarea>
+                <div class="form__error" id="messageError"></div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" id="cancelDialog" class="btn btn--secondary">Закрыть</button>
+                <button type="submit" class="btn">Отправить</button>
+            </div>
+        </form>
+    </dialog>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 Твич Клипы. Все права защищены.</p>
+            <p>Телефон: +7 (123) 456-78-90</p>
+        </div>
     </footer>
+
+    <button class="theme-toggle" type="button" aria-pressed="false">🌓</button>
+    
+    <script>
+        // Скрипт для модального окна и валидации
+        const dlg = document.getElementById('contactDialog');
+        const openBtn = document.getElementById('openDialog');
+        const closeBtn = document.getElementById('closeDialog');
+        const cancelBtn = document.getElementById('cancelDialog');
+        const form = document.getElementById('contactForm');
+        let lastActive = null;
+
+        // Открытие модалки
+        openBtn.addEventListener('click', () => {
+            lastActive = document.activeElement;
+            dlg.showModal();
+            dlg.querySelector('input, select, textarea, button')?.focus();
+        });
+
+        // Закрытие модалки
+        closeBtn.addEventListener('click', () => dlg.close('cancel'));
+        cancelBtn.addEventListener('click', () => dlg.close('cancel'));
+
+        // Валидация формы
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Сброс ошибок
+            document.querySelectorAll('.form__error').forEach(el => el.textContent = '');
+            document.querySelectorAll('[aria-invalid="true"]').forEach(el => el.removeAttribute('aria-invalid'));
+            
+            if (!form.checkValidity()) {
+                // Показ ошибок
+                form.reportValidity();
+                
+                // Кастомные сообщения
+                const email = form.elements.email;
+                if (email.validity.typeMismatch) {
+                    document.getElementById('emailError').textContent = 'Введите корректный email адрес';
+                    email.setAttribute('aria-invalid', 'true');
+                }
+                
+                return;
+            }
+            
+            // Успешная отправка
+            alert('Сообщение отправлено! Мы свяжемся с вами в ближайшее время.');
+            form.reset();
+            dlg.close('success');
+        });
+
+        // Возврат фокуса после закрытия
+        dlg.addEventListener('close', () => {
+            lastActive?.focus();
+        });
+
+        // Переключение темы
+        const KEY = 'theme';
+        const btn = document.querySelector('.theme-toggle');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (localStorage.getItem(KEY) === 'dark' || (!localStorage.getItem(KEY) && prefersDark)) {
+            document.body.classList.add('theme-dark');
+            btn?.setAttribute('aria-pressed', 'true');
+        }
+
+        btn?.addEventListener('click', () => {
+            const isDark = document.body.classList.toggle('theme-dark');
+            btn.setAttribute('aria-pressed', String(isDark));
+            localStorage.setItem(KEY, isDark ? 'dark' : 'light');
+        });
+    </script>
 </body>
 </html>
