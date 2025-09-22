@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас - Твич Клипы</title>
+    <meta name="description" content="Узнайте больше о нашей компании и истории">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a class="site-header__brand" href="/">Твич Клипы</a>
+            <nav class="site-nav" aria-label="Основная навигация">
+                <ul class="site-nav__list">
+                    <li class="site-nav__item"><a class="site-nav__link" href="index.html">Главная</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link site-nav__link--active" href="about.html">О нас</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link site-nav__link--cta" href="contacts.html">Связаться</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Хлебные крошки -->
+        <nav class="breadcrumbs" aria-label="Хлебные крошки">
+            <ul class="breadcrumbs__list">
+                <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="index.html">Главная</a></li>
+                <li class="breadcrumbs__item"><span class="breadcrumbs__current">О нас</span></li>
+            </ul>
+        </nav>
+
+        <h1 class="section__title">О нашей компании</h1>
+        
+        <section class="section">
+            <h2 class="section__title">Наша история</h2>
+            <p>Твич Клипы был основан в 2025 году группой энтузиастов, которые хотели сделать просмотр лучших моментов с Twitch более удобным и доступным.</p>
+            
+            <picture>
+                <source type="image/avif" srcset="assets/history.avif">
+                <source type="image/webp" srcset="assets/history.webp">
+                <img src="assets/history.jpg" alt="Основатели компании" width="800" height="450" loading="lazy">
+            </picture>
+        </section>
+        
+        <section class="section">
+            <h2 class="section__title">Наша команда</h2>
+            <p>Мы - небольшая команда разработчиков, дизайнеров и контент-менеджеров, которые любят Twitch и хотят делиться лучшими моментами с сообществом.</p>
+            
+            <div class="card" style="margin-top: var(--space-4);">
+                <img src="assets/team-640.jpg" 
+                     srcset="assets/team-640.jpg 640w, assets/team-960.jpg 960w"
+                     sizes="(max-width: 700px) 92vw, 640px"
+                     alt="Наша команда" 
+                     class="card__img"
+                     width="640" height="360"
+                     loading="lazy">
+                <div class="card__content">
+                    <h3 class="card__title">Команда Твич Клипов</h3>
+                    <p class="card__description">Мы работаем чтобы вы получали лучший контент</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 Твич Клипы. Все права защищены.</p>
+            <p>Телефон: +7 (123) 456-78-90</p>
+        </div>
+    </footer>
+
+    <button class="theme-toggle" type="button" aria-pressed="false">🌓</button>
+    <script>
+         // Переключение темы
+        const KEY = 'theme';
+        const btn = document.querySelector('.theme-toggle');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        // Автовыбор темы
+        if (localStorage.getItem(KEY) === 'dark' || (!localStorage.getItem(KEY) && prefersDark)) {
+            document.body.classList.add('theme-dark');
+            btn?.setAttribute('aria-pressed', 'true');
+        }
+
+        // Обработчик клика
+        btn?.addEventListener('click', () => {
+            const isDark = document.body.classList.toggle('theme-dark');
+            btn.setAttribute('aria-pressed', String(isDark));
+            localStorage.setItem(KEY, isDark ? 'dark' : 'light');
+         });
+    </script>
+</body>
+</html>
